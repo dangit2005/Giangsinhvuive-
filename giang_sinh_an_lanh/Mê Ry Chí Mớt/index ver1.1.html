@@ -11,6 +11,8 @@
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js"
         crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@700&family=Pacifico&display=swap" rel="stylesheet">
+
 
     <style>
         body {
@@ -129,7 +131,7 @@
     <div id="canvas-container"></div>
     <video class="input_video" style="display:none"></video>
     <video id="bgVideo" loop muted autoplay playsinline style="display:none">
-        <source src="nen4.mp4" type="video/mp4">
+        <source src="new_nen.mp4" type="video/mp4">
     </video>
     <canvas id="camera-preview"></canvas>
 
@@ -180,20 +182,21 @@
             red: createCustomTexture('red_light'),
             gift: createCustomTexture('gift_red')
         };
-        function createTextTexture(text) {
-            const canvas = document.createElement('canvas');
-            canvas.width = 256; canvas.height = 64;
-            const ctx = canvas.getContext('2d');
-            ctx.font = 'bold 40px Arial';
-            ctx.fillStyle = '#FFFFFF'; // Màu hồng nhạt cho tên và tim
-            ctx.textAlign = 'center';
-            ctx.shadowColor = '#FF1493';
-            ctx.shadowBlur = 10;
-            ctx.fillText(text, 128, 45);
-            return new THREE.CanvasTexture(canvas);
-        }
+        // function createTextTexture(text) {
+        //     const canvas = document.createElement('canvas');
+        //     canvas.width = 256; canvas.height = 64;
+        //     const ctx = canvas.getContext('2d');
+        //     ctx.font = '40px "Pacifico", cursive';
 
-        const textTexture = createTextTexture('Ngọc Chi ❤️');
+        //     ctx.fillStyle = '#FFFFFF'; // Màu hồng nhạt cho tên và tim
+        //     ctx.textAlign = 'center';
+        //     ctx.shadowColor = '#FF1493';
+        //     ctx.shadowBlur = 10;
+        //     ctx.fillText(text, 128, 45);
+        //     return new THREE.CanvasTexture(canvas);
+        // }
+
+        // const textTexture = createTextTexture('Ngọc Chi ❤️');
 
         // ==========================================
         // 2. SYSTEM CONFIG Vandiep
@@ -247,7 +250,7 @@
             createPhotos();
             createDecorations();
             animate();
-            groupText = createFallingText();
+            // groupText = createFallingText();
         }
         function createFallingText() {
             const pPositions = [];
@@ -539,25 +542,25 @@
                     mesh.material.map = photoTextures[i]; mesh.material.needsUpdate = true;
                 }
             });
-            if (groupText) {
-                const positions = groupText.geometry.attributes.position.array;
-                const vels = groupText.geometry.userData.velocities;
+            // if (groupText) {
+            //     const positions = groupText.geometry.attributes.position.array;
+            //     const vels = groupText.geometry.userData.velocities;
 
-                for (let i = 0; i < CONFIG.textCount; i++) {
-                    // Giảm tọa độ Y (rơi xuống)
-                    positions[i * 3 + 1] -= vels[i];
+            //     for (let i = 0; i < CONFIG.textCount; i++) {
+            //         // Giảm tọa độ Y (rơi xuống)
+            //         positions[i * 3 + 1] -= vels[i];
 
-                    // Hiệu ứng đung đưa (sin wave) cho sinh động
-                    positions[i * 3] += Math.sin(time + i) * 0.05;
+            //         // Hiệu ứng đung đưa (sin wave) cho sinh động
+            //         positions[i * 3] += Math.sin(time + i) * 0.05;
 
-                    // Nếu rơi xuống quá thấp, đưa lên lại trên đỉnh
-                    if (positions[i * 3 + 1] < -100) {
-                        positions[i * 3 + 1] = 100;
-                        positions[i * 3] = (Math.random() - 0.5) * 200;
-                    }
-                }
-                groupText.geometry.attributes.position.needsUpdate = true;
-            }
+            //         // Nếu rơi xuống quá thấp, đưa lên lại trên đỉnh
+            //         if (positions[i * 3 + 1] < -100) {
+            //             positions[i * 3 + 1] = 100;
+            //             positions[i * 3] = (Math.random() - 0.5) * 200;
+            //         }
+            //     }
+            //     groupText.geometry.attributes.position.needsUpdate = true;
+            // }
 
             if (state === 'TREE') {
                 titleMesh.visible = true; starMesh.visible = true; loveMesh.visible = false;
